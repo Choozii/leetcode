@@ -3,16 +3,16 @@
  * @return {number}
  */
 var mySqrt = function(x) {
-  let finding = true;
-  let index = 0;
+  let left = 0, right = x;
     
-  while(finding){
-    if(index**2 <= x && x < (index+1)**2){
-        finding = false;
-    }else{
-        index++;
+    while(left <= right){
+     const mid = Math.floor((left + right)/2);
+        if(mid ** 2 <= x && x < (mid+1)**2 ){
+            return mid;
+        }else if(mid**2 > x){
+            right = mid - 1;
+        }else{
+            left = mid + 1;
+        }
     }
-  }
-    
-  return index;
 };
