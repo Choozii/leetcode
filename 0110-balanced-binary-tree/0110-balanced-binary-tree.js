@@ -10,31 +10,23 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
-
-
-    const treeHeight = (node) => {
-        if(!node) {
+var isBalanced = function(root) {
+    let flag = true;
+    const height = (node) => {
+        if(node === null){
             return 0;
         }
-          
-  
         
-        const leftHeight = treeHeight(node.left) + 1;
-        const rightHeight = treeHeight(node.right) + 1;
-    
-        if(leftHeight === 0 || rightHeight === 0){
-            return -1;
+        const left = height(node.left) + 1;
+        const right = height(node.right) + 1;
+        
+        if(Math.abs(left-right) > 1){
+            flag = false; 
         }
         
-        return Math.abs(leftHeight - rightHeight) <=1 ? Math.max(leftHeight, rightHeight):-1;
+        return Math.max(left, right);
     }
     
-    
-var isBalanced = function(root) {  
-  
-    if(!root){
-        return true;
-    }
-    
-    return treeHeight(root) !== -1;
+    height(root);
+    return flag;
 };
