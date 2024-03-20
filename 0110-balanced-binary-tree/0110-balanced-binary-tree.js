@@ -16,11 +16,17 @@
         if(!node) {
             return 0;
         }
-                        
+          
+  
+        
         const leftHeight = treeHeight(node.left) + 1;
         const rightHeight = treeHeight(node.right) + 1;
     
-        return Math.abs(leftHeight - rightHeight) <=1 ? Math.max(leftHeight, rightHeight):Infinity;
+        if(leftHeight === 0 || rightHeight === 0){
+            return -1;
+        }
+        
+        return Math.abs(leftHeight - rightHeight) <=1 ? Math.max(leftHeight, rightHeight):-1;
     }
     
     
@@ -30,5 +36,5 @@ var isBalanced = function(root) {
         return true;
     }
     
-    return treeHeight(root) !== Infinity;
+    return treeHeight(root) !== -1;
 };
