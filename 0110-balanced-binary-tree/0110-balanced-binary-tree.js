@@ -11,22 +11,28 @@
  * @return {boolean}
  */
 var isBalanced = function(root) {
+    /*
+    input : binary tree
+    output : height-balanced인지 여부 boolean (양쪽 트리의 높이 차이가 1 이하인지)
+    constraint : root === [] -> return true
+    */
     let flag = true;
-    const height = (node) => {
-        if(node === null){
+    
+    const dfs = (node) => {
+        if(!node){
             return 0;
         }
         
-        const left = height(node.left) + 1;
-        const right = height(node.right) + 1;
-        
-        if(Math.abs(left-right) > 1){
-            flag = false; 
+        const left = dfs(node.left) + 1;
+        const right = dfs(node.right) + 1;
+       
+        if(Math.abs(left - right) > 1){
+            flag = false;
         }
-        
+
         return Math.max(left, right);
     }
     
-    height(root);
+    dfs(root);
     return flag;
 };
