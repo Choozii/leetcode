@@ -4,15 +4,27 @@
  * @return {boolean}
  */
 var backspaceCompare = function(s, t) {
-    let s1="", s2="";
     
-    for(let i=0;i<s.length;i++){
-        s1 = s[i] === "#"? s1.substring(0, s1.length-1) : s1+=s[i];
+    const getTrimmed = (str) => {
+        let ptr = str.length - 1;
+        let shopCnt = 0;
+        let res = "";
+        
+        while(ptr >= 0){
+            if(str[ptr] === "#"){
+                shopCnt++;
+            }else if(shopCnt > 0){
+                shopCnt--;
+            }else{
+                res += str[ptr];
+            }
+            ptr--;
+        }
+        return res;
     }
     
-    for(let i=0;i<t.length;i++){
-        s2 = t[i] === "#"? s2.substring(0, s2.length-1) : s2+=t[i];
-    }
-            
-    return s1 === s2;
+    const sStr = getTrimmed(s);
+    const tStr = getTrimmed(t);
+    
+    return sStr === tStr;
 };
