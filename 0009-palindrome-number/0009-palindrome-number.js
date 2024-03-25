@@ -6,11 +6,25 @@ var isPalindrome = function(x) {
     if(x < 0){
         return false;
     }
-    const xStr = x.toString();
+
+    let number = x;
+    const numbers = [];
     
-    if(xStr.length === 1){
-        return true;
+    while(number){
+        numbers.push(number % 10);
+        number = Math.floor(number/10);
     }
     
-    return xStr === [...xStr].reverse().join("");
+    let left = 0, right = numbers.length-1;
+    
+    while(left <= right){
+        if(numbers[left] !== numbers[right]){
+            return false;
+        }
+        
+        left++;
+        right--;
+    }
+    
+    return true;
 };
