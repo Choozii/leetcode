@@ -16,17 +16,14 @@ output : "height-balanced" binary search tree
 */
 var sortedArrayToBST = function(nums) {
         
-    const helper = (nums) => {
-        if(!nums.length){
+    const helper = (left, right) => {
+        if(left > right){
             return null;
         }
-        const midIdx = Math.floor(nums.length/2);
-        const mid = nums[midIdx];
-        const left = helper(nums.slice(0, midIdx));
-        const right = helper(nums.slice(midIdx+1, nums.length));
         
-        return new TreeNode(mid, left, right);
+        const midIdx = Math.floor((left+right)/2);
+        return new TreeNode(nums[midIdx], helper(left, midIdx-1), helper(midIdx+1, right));
     }
     
-    return helper(nums);
+    return helper(0, nums.length-1);
 };
