@@ -3,17 +3,12 @@
  * @return {boolean}
  */
 var canAttendMeetings = function(intervals) {
-    const attend = [];
-    
-    for(let i=0;i<intervals.length;i++){
-        const [start, end] = intervals[i];
-        
-        for(let j=start;j<end;j++){
-            if(!attend[j]){
-                attend[j] = true;                
-            }else{
-                return false;
-            }
+    intervals.sort((a,b) => a[0]-b[0]);
+    for(let i=0;i<intervals.length-1;i++){
+        if(intervals[i][1] <= intervals[i+1][0]){
+            continue;
+        }else{
+            return false;
         }
     }
     
