@@ -24,10 +24,11 @@ var lengthOfLongestSubstring = function(s) {
     let maxLength = 0;
     
     for(let i=0;i<s.length;i++){
-        if(!substring.includes(s[i])){
+        const idx = substring.indexOf(s[i]);
+
+        if(idx === -1){
             substring += s[i];
         }else{
-            const idx = substring.indexOf(s[i]);
             substring = substring.slice(idx+1, substring.length) + s[i];
         }
         maxLength = Math.max(substring.length, maxLength);
