@@ -2,31 +2,17 @@
  * @param {string[]} strs
  * @return {string}
  */
-
-/*
-input : 문자열 배열
-output : 가장 긴 공통 prefix
-constraint : 공통 prefix가 없다면 ""를 리턴, 스트링 배열 길이 : 최대 200
-*/
-
 var longestCommonPrefix = function(strs) {
-
-    let common = strs[0];
     
-   for(let i=1;i<strs.length;i++){
-       const longer = common.length > strs[i].length?common:strs[i];
-       const shorter = longer === common?strs[i]:common;
-       
-       common = "";
-       
-       for(let i=0;i<shorter.length;i++){
-           if(longer[i] === shorter[i]){
-               common += longer[i];
-           }else{
-               break;
-           }
-       }
-   }
+    for(let i=0;i<strs[0].length;i++){
+        const c = strs[0][i];
+        
+        for(let j=1; j<strs.length;j++){
+            if(i === strs[0].length || strs[j][i] !== c){
+                return strs[0].substring(0, i);
+            }
+        }
+    }
     
-    return common;
+    return strs[0];
 };
