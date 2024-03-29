@@ -24,15 +24,8 @@ var isSymmetric = function(root) {
             temp.push(curr.right || null);
         }
         
-        
         for(let i=0;i<temp.length/2;i++){
-            if(!temp[i] && !temp[temp.length-1-i]){
-                continue;
-            }if(!temp[i] || !temp[temp.length-1-i]){
-                return false;
-            }
-            
-             if(temp[i].val !== temp[temp.length-1-i].val){
+             if(temp[i]?.val !== temp[temp.length-1-i]?.val){
                 return false;
              }
         }
