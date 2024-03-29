@@ -3,14 +3,14 @@
  * @return {number}
  */
 var missingNumber = function(nums) {
-    const arr = new Array(nums.length+1);
-    for(let i=0;i<nums.length;i++){
-        arr[nums[i]] = true;
+    let XORNum = 0;
+    for(let i=0;i<nums.length+1;i++){
+        XORNum ^= i;
     }
-            
-    for(let i=0;i<arr.length;i++){
-        if(!arr[i]){
-            return i;
-        }
-    }
+    
+   nums.forEach(num => {
+       XORNum ^= num;
+   })
+    
+    return XORNum;
 };
