@@ -3,16 +3,23 @@
  * @return {number[]}
  */
 var countBits = function(n) {
-    const arr = [];
-    arr[0] = 0;
+    const dp = new Array(n+1);
+    dp[0] = 0;
     
-    for(let i=1;i<=n;i++){
-        let number = i;
-       while(number !== 0){
-            number &= number-1;
-           arr[i] = arr[i]?arr[i]+1:1;
-        }  
+    let x = 0;
+    let b = 1;
+    
+    while(b <= n){
+        
+        //4,5,6,7      
+        while(x < b && x+b <= n){
+            dp[x+b] = dp[x]+1;
+            x++;
+        }
+        
+        x = 0;
+        b <<= 1;
     }
     
-    return arr;
+    return dp;
 };
