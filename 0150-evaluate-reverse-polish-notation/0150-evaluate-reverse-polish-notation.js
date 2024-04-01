@@ -36,7 +36,6 @@ var evalRPN = function(tokens) {
                 break;
         }
         
-        console.log(result);
         stack.push(result);
         curr++;
     }
