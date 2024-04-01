@@ -37,7 +37,10 @@ var threeSum = function(nums) {
     
     nums.forEach((val, idx) => {
         if(idx === 0 || nums[idx-1] !== nums[idx]){ // 중복되는 값은 호출되지 않도록 처리
-          check(idx);               
+            if(nums[idx] > 0){
+                return;
+            }
+            check(idx);               
         }
     });
     
