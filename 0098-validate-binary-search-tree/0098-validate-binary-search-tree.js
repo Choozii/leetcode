@@ -10,20 +10,20 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
+    
 
-    const validate = (node, low, high) => {
-        if(!node){
-            return true;
-        }
+var isValidBST = function(root) {    
+   let pre = null;
+    
+    const inorder = (node) => {
+        if(!node) return true;
+        if(!inorder(node.left)) return false;
         
-        if((low !== null && node.val <= low) ||
-           (high !== null && high <= node.val)){
-            return false;   
-        }
+        if(pre!== null && node.val <= pre) return false;
         
-        return validate(node.left, low, node.val) && validate(node.right, node.val, high);
+        pre = node.val;
+        return inorder(node.right);
     }
     
-var isValidBST = function(root) {    
-   return validate(root, null, null);
+   return inorder(root);
 };
