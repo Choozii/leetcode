@@ -10,9 +10,7 @@ var subsets = function(nums) {
             return;
         }
         
-        subset.push(nums[level]);
-        helper(level+1, [...subset]);
-        subset.pop();
+        helper(level+1, [...subset, nums[level]]);
         helper(level+1, [...subset]);
     }
     
