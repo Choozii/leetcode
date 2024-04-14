@@ -3,7 +3,14 @@
  * @return {string[]}
  */
 
-const letterMap = {
+
+var letterCombinations = function(digits) {
+    
+    if(!digits){
+        return [];
+    }
+
+    const letterMap = {
     2 : ["a", "b", "c"],
     3 : ["d", "e", "f"],
     4 : ["g", "h", "i"],
@@ -12,17 +19,13 @@ const letterMap = {
     7 : ["p", "q", "r", "s"],
     8 : ["t", "u", "v"],
     9 : ["w", "x", "y", "z"]
-}
-
-var letterCombinations = function(digits) {
-    const result = [];
-    
-    if(!digits){
-        return result;
     }
+
+    const result = [];
+
     
     const helper = (index, str) => {
-        if(index >= digits.length){
+        if(index === digits.length){
             result.push(str);
             return;
         }
