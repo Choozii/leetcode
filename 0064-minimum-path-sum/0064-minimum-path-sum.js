@@ -3,16 +3,19 @@
  * @return {number}
  */
 var minPathSum = function(grid) {
-    for(let i=0;i<grid.length;i++){
-        for(let j=0;j<grid[0].length;j++){
-            if(i==0 && j==0) continue;
-            if(i > 0 && j > 0){
+    
+    
+    for(let j=1;j<grid[0].length;j++){
+        grid[0][j] = grid[0][j-1] + grid[0][j];
+    }
+    
+    for(let i=1;i<grid.length;i++){
+        grid[i][0] = grid[i-1][0] + grid[i][0];
+    }
+    
+    for(let i=1;i<grid.length;i++){
+        for(let j=1;j<grid[0].length;j++){
                 grid[i][j] = Math.min(grid[i][j-1], grid[i-1][j]) + grid[i][j];
-            }else if(i > 0){
-                grid[i][j] = grid[i-1][j] + grid[i][j];
-            }else{
-                grid[i][j] = grid[i][j-1] + grid[i][j];
-            }
         }
     }
     
