@@ -7,12 +7,9 @@ var maxProduct = function(nums) {
     let result = nums[0];
     
     for(let i=1;i<nums.length;i++){
-
-        const min = Math.min(prevMin*nums[i], prevMax*nums[i], nums[i]);
-        const max = Math.max(prevMin*nums[i], prevMax*nums[i], nums[i]);
-        
-        prevMin = min;
-        prevMax = max;
+        const temp = Math.min(prevMin*nums[i], prevMax*nums[i], nums[i]);
+        prevMax = Math.max(prevMin*nums[i], prevMax*nums[i], nums[i]);
+        prevMin = temp;
         result = Math.max(prevMax, result);
     }
     
