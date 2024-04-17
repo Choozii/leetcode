@@ -7,10 +7,12 @@ var moveZeroes = function(nums) {
     
     for(let i=0;i<nums.length;i++){
         if(nums[i] !== 0){
-            const temp = nums[i];
-            nums[i] = nums[zeroPtr];
-            nums[zeroPtr] = temp;
+            nums[zeroPtr] = nums[i];
             zeroPtr++;
         }
     }
-};
+    
+    for(let i=zeroPtr;i<nums.length;i++){
+        nums[i] = 0;
+    };
+}
