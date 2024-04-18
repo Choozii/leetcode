@@ -9,7 +9,7 @@ var expect = function(val) {
         if(val === other){
             return true;
         }else{
-            throw Error('Not Equal');
+            throw 'Not Equal';
         }
     },
     
@@ -17,7 +17,7 @@ var expect = function(val) {
         if(val !== other){
             return true;
         }else{
-            throw Error('Equal');
+            throw 'Equal';
         }
     }  
     }
