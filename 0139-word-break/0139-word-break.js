@@ -4,30 +4,22 @@
  * @return {boolean}
  */
 var wordBreak = function(s, wordDict) {
-    const memo = {}
+    const dp = Array(s.length+1).fill(false);
+    dp[0] = true;
     
-    const helper = (idx) => {
-        if(memo[idx] !== undefined){
-            return memo[idx];
-        }
-        
-        if(idx === s.length){
-            memo[idx] = true;
-            return true;
-        }
-        
-        for(let i=0;i<wordDict.length;i++){
-            const word = wordDict[i];
-            if(s.slice(idx, idx+word.length) === word){
-                if(helper(idx+word.length)) {
-                    return true;
-                }
+    for(let i=1;i<s.length+1;i++){
+        for(let j=0;j<wordDict.length;j++){
+            const word = wordDict[j];
+            
+            if(s.slice(i-word.length, i) === word){
+                dp[i] = dp[i-word.length];
+            }
+            
+            if(dp[i]){
+                break;
             }
         }
-        
-    memo[idx] = false;
-    return false;
     }
     
-    return helper(0);
+    return dp[s.length];
 };
