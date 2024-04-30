@@ -3,20 +3,25 @@
  * @return {number[][]}
  */
 var subsets = function(nums) {
-    const output = [[]];
+    const output = [];
+    const n = nums.length;
     
-    nums.forEach(num => {
-        const newSubsets = [];
+    const backtrack = (first = 0, curr = [], limit) => {
+        if(curr.length === limit){
+            output.push([...curr]);
+            return;
+        }
         
-        output.forEach(curr => {
-            newSubsets.push([...curr, num]);
-        });
-        
-        newSubsets.forEach(subset => {
-            output.push(subset);
-        })
-    });
+        for(let i=first;i<n;i++){
+            curr.push(nums[i]);
+            backtrack(i+1, curr, limit);
+            curr.pop();
+        }
+    }
     
+    for(let i=0;i<n+1;i++){
+        backtrack(0,[],i);
+    }
     
     return output;
 };
