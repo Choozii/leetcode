@@ -2,42 +2,35 @@
  * @param {string} digits
  * @return {string[]}
  */
-
-
 var letterCombinations = function(digits) {
-    
-    if(!digits){
+    if(!digits.length){
         return [];
     }
-
-    const letterMap = {
-    2 : ["a", "b", "c"],
-    3 : ["d", "e", "f"],
-    4 : ["g", "h", "i"],
-    5 : ["j", "k", "l"],
-    6 : ["m", "n", "o"],
-    7 : ["p", "q", "r", "s"],
-    8 : ["t", "u", "v"],
-    9 : ["w", "x", "y", "z"]
-    }
-
-    const result = [];
-
     
-    const helper = (index, str) => {
-        if(index === digits.length){
-            result.push(str);
+    const ans = [];
+
+    const map = {
+        2: "abc",
+        3: "def",
+        4: "ghi",
+        5: "jkl",
+        6: "mno",
+        7: "pqrs",
+        8: "tuv",
+        9: "wxyz"
+    }
+    
+    const helper = (input, index) => {
+        if(input.length === digits.length){
+            ans.push(input);
             return;
         }
         
-        const chars = letterMap[digits[index]];
-        
-        for(let i=0;i<chars.length;i++){
-            helper(index+1, str+chars[i]);
-        }
+        const nextDigits = map[digits[index+1]];
+        nextDigits.split("").forEach(digit => helper(input+digit, index+1));
     }
     
-    helper(0, "");
+    map[digits[0]].split("").forEach(digit => helper(digit, 0));
     
-    return result;
+    return ans;
 };
