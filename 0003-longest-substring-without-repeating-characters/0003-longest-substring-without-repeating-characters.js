@@ -3,35 +3,31 @@
  * @return {number}
  */
 var lengthOfLongestSubstring = function(s) {
-    /*
-    input : string s
-    output : 반복 없는 longest substring length 
     
-    s = "abcabcbb"
-         ---
-          ---
-           ---
-            ---
-              --
+    if(!s.length){
+        return 0;
+    }
     
-    substring이라는 변수에 * 지금까지 없었던 char이라면 추가*
-    maxLength에 Math.max로 계속 저장
-    - 만약에 있는 char이라면?
-      - n번째 글자와 겹친다면, 기존 n번째까지 삭제하고 새로운 글자 넣어버리기
-    */
+    let start = 0, end = 0;
+    const indexMap = {};
+    indexMap[s[start]] = start;
     
-    let substring = "";
-    let maxLength = 0;
+    let maxLength = 1;
     
-    for(let i=0;i<s.length;i++){
-        const idx = substring.indexOf(s[i]);
-
-        if(idx === -1){
-            substring += s[i];
-        }else{
-            substring = substring.slice(idx+1, substring.length) + s[i];
+    while(end < s.length){
+        const prevStr = s.slice(start, end+1);
+        end++;
+        
+        if(end >= s.length){
+            break;
         }
-        maxLength = Math.max(substring.length, maxLength);
+
+        if(prevStr.includes(s[end])){
+            start = indexMap[s[end]] + 1;
+        }
+                
+        maxLength = Math.max(maxLength, end - start + 1);
+        indexMap[s[end]] = end;
     }
     
     return maxLength;
