@@ -4,24 +4,29 @@
  */
 var minRemoveToMakeValid = function(s) {    
     const openParenthese = [];
-    const removeIndex = [];
+    const removeIndex = {};
     
     for(let i=0;i<s.length;i++){
         if(s[i] === "("){
             openParenthese.push(i);
         }else if(s[i] === ")"){
-            openParenthese.length > 0? openParenthese.pop():removeIndex.push(i);
+            if(openParenthese.length > 0){
+                openParenthese.pop();
+            }else{
+                removeIndex[i] = true;
+            }
         }
     }
     
-    if(openParenthese.length){
-        removeIndex.push(...openParenthese);
+    while(openParenthese.length > 0){
+        const i = openParenthese.pop();
+        removeIndex[i] = true;
     }
   
     let res = "";
     
    for(let i=0;i<s.length;i++){
-       if(!removeIndex.includes(i)){
+       if(!removeIndex[i]){
            res += s[i];
        }
    }
