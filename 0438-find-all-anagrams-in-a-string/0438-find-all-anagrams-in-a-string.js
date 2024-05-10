@@ -5,9 +5,6 @@
  */
 var findAnagrams = function(s, p) {
     const output = [];
-    /*
-        pCount === sCount -> update the output list
-    */
     const pCount = {};
     const sCount = {};
     
@@ -31,23 +28,26 @@ var findAnagrams = function(s, p) {
         if(areEqual(pCount, sCount)){
             output.push(i-p.length+1);
         }
-    
     }
     
     return output;
 };
 
 const areEqual = (obj1, obj2) => {
-    if(Object.keys(obj1).length !== Object.keys(obj2).length){
+    const keys1 = Object.keys(obj1);
+    const keys2 = Object.keys(obj2);
+    
+    if(keys1.length !== keys2.length){
         return false;
     }
     
-    let res = true;
+    for(let i=0;i<keys1.length;i++){
+        const key = keys1[i];
+        
+        if(obj2[key] !== obj1[key] || !obj2[key]){
+            return false;
+        }
+    }
     
-    Object.keys(obj1).forEach(key => {
-        if(!obj2[key] || obj2[key] !== obj1[key]){
-            res = false;
-    }});
-    
-    return res;
+    return true;
 }
