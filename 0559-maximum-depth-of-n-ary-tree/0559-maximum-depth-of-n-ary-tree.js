@@ -12,18 +12,23 @@
  */
 var maxDepth = function(root) {
     
-    const getDepth = (node) => {
-        if(!node){
-            return 0;
-        }
-        
-        let max = 0;
-        node.children.forEach((child) => {
-            max = Math.max(getDepth(child), max);
-        })
-        
-        return max+1;
+    if(!root){
+        return 0;
     }
     
-    return getDepth(root);
+   const stack = [[root, 1]]; 
+    
+    let maxHeight = 0;
+    while(stack.length > 0){
+        const [node, height] = stack.pop();
+        
+        if(node!==null){
+            maxHeight = Math.max(maxHeight, height);
+            node.children.forEach(child => {
+                stack.push([child, height+1]);
+            })
+        }
+    }
+   
+    return maxHeight;
 };
