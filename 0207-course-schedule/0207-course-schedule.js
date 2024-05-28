@@ -3,43 +3,41 @@
  * @param {number[][]} prerequisites
  * @return {boolean}
  */
-
 var canFinish = function(numCourses, prerequisites) {
-    const indegree = new Array(numCourses).fill(0);
-    const map = new Map();
-    const q = [];
-    const order = [];
+    const require = {};
+    const mapping = {}; //선수:들을과목
     
-    
-    for(let i=0;i<prerequisites.length;i++){
-        const [course, pre] = prerequisites[i];
-        
-        map.get(pre)? map.get(pre).push(course) : map.set(pre, [course]);
-        indegree[course]++;
+    for(let i=0;i<numCourses;i++){
+        require[i] = [];
+        mapping[i] = [];
     }
     
-    for(let i=0;i<indegree.length;i++){
-        if(indegree[i] === 0){
-            q.push(i);
-        }
+    prerequisites.forEach(([a, b]) => {
+        require[a] = [...require[a], b];
+        mapping[b] = [...mapping[b], a];
+    });
+    
+    let next = [];
+    
+    Object.entries(require).forEach(([k,v]) =>{
+        if(v.length === 0){
+            next.push(k);
+    }})
+    
+
+    while(next.length){
+        const newNext = [];
+        next.forEach((val) => {
+            mapping[val].forEach(key => {
+                require[key].splice(require[key].indexOf(val), 1);
+                if(require[key].length === 0){
+                    newNext.push(key);
+                }
+            });
+            delete require[val];
+        });
+        next = newNext;
     }
     
-    while(q.length > 0){
-        const course = q.shift();
-        
-        const nextCourses = map.get(course) || [];
-        
-        nextCourses.forEach(next => {
-            indegree[next]--;
-            if(indegree[next] === 0){
-                q.push(next);
-            }
-        })
-        
-        map.delete(course);
-        order.push(course);
-    }
-        
-    return numCourses === order.length;
-    
+    return Object.keys(require).length === 0;
 };
