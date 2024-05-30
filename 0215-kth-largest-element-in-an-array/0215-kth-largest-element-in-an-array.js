@@ -10,7 +10,6 @@ var findKthLargest = function(nums, k) {
         mh.enqueue(nums[i]);
     }
     
-    // console.log(mh);
     return mh.dequeue();
 };
 
@@ -37,24 +36,14 @@ class MinHeap{
     
     bubbleUp(){
         let currentIdx = this.q.length - 1;
-        // console.log('currentIdx',currentIdx);
         while(currentIdx > 0){
             const current = this.q[currentIdx];
             const parentIdx = Math.floor((currentIdx-1)/2);
             const parent = this.q[parentIdx];
             
-            // console.log('=======');
-            // console.log('current',current);
-            // console.log('parentIdx',parentIdx);
-            // console.log('parent',parent);
-            // console.log('=======');
-
-            
             if(current < parent){
                 this.swap(currentIdx, parentIdx);
-                // console.log("After swap : ", this.q);
                 currentIdx = parentIdx;
-                // console.log("After swap currentIdx : ", currentIdx);
             }else{
                 break;
             }
@@ -66,7 +55,6 @@ class MinHeap{
         const len = this.q.length;
         
         while(currentIdx < len){
-            
             const current = this.q[currentIdx];
             const leftChildIdx = (2 * currentIdx) + 1;
             const rightChildIdx = leftChildIdx + 1;
@@ -79,20 +67,21 @@ class MinHeap{
                  if(leftChild < current){
                     smallerIdx = leftChildIdx;                         
                  }
-                  //smallerIdx undefined, rightChild < leftChild, rightChild > leftChild
+                  
                 if(rightChildIdx < len){
-                    if((smallerIdx !== undefined && rightChild < this.q[smallerIdx]) || (smallerIdx === undefined && rightChild < current)){
+                    if((smallerIdx !== undefined && rightChild < this.q[smallerIdx]) 
+                       || (smallerIdx === undefined && rightChild < current)){
                         smallerIdx = rightChildIdx;
                     }
                 }
             }
-            if(smallerIdx !== undefined){
-                this.swap(smallerIdx, currentIdx);
-                currentIdx = smallerIdx;
-            }else{
+            
+            if(smallerIdx === undefined){
                 break;
             }
-              
+            
+            this.swap(smallerIdx, currentIdx);
+            currentIdx = smallerIdx;  
         }
     }
         
