@@ -11,18 +11,17 @@
  * @param {number} k
  * @return {number}
  */
-
-const inorder = (node, arr) => {
-    if(!node){
-        return arr;
-    }
-    inorder(node.left, arr);
-    arr.push(node.val);
-    inorder(node.right, arr);
-    return arr;
-}
-
 var kthSmallest = function(root, k) {
-    const nums = inorder(root, []);
-    return nums[k-1];
+    const stack = [];
+    
+    while(true){
+        while(root !== null){
+            stack.push(root);
+            root = root.left;
+        }
+        
+        root = stack.pop();
+        if(--k === 0) return root.val;
+        root = root.right;
+    }
 };
