@@ -3,15 +3,14 @@
  * @return {number}
  */
 var maxProduct = function(nums) {
-    let prevMin = nums[0], prevMax = nums[0];
-    let result = nums[0];
+    let sub_max = nums[0];
+    let sub_min = nums[0];
+    let res = sub_max;
     
     for(let i=1;i<nums.length;i++){
-        const temp = Math.min(prevMin*nums[i], prevMax*nums[i], nums[i]);
-        prevMax = Math.max(prevMin*nums[i], prevMax*nums[i], nums[i]);
-        prevMin = temp;
-        result = Math.max(prevMax, result);
+        [sub_max, sub_min] = [Math.max(nums[i], nums[i] * sub_max,  nums[i] * sub_min)
+                             , Math.min(nums[i], nums[i] * sub_max,  nums[i] * sub_min)];
+        res = Math.max(res, sub_max);
     }
-    
-    return result;
+    return res;
 };
