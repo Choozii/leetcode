@@ -3,21 +3,14 @@
  * @return {number}
  */
 var rob = function(nums) {
+    const dp = new Array(nums.length + 1);
+    dp[0] = 0;
+    dp[1] = nums[0];
     
-    if(nums.length === 1){
-        return nums[0];
+    for(let i=2;i<dp.length;i++){
+        dp[i] = Math.max(dp[i-1], dp[i-2] + nums[i-1]);
     }
     
-    let far = nums[0];
-    let neighbor = Math.max(nums[0], nums[1]);
-    
-    
-    let currentIdx = 2;
-    
-    while(currentIdx < nums.length){          
-        [neighbor, far] = [Math.max(nums[currentIdx] + far, neighbor), neighbor];
-        currentIdx++;
-    }
-    
-    return neighbor;
+    // console.log(dp);
+    return dp[dp.length-1];
 };
