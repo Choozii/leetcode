@@ -22,13 +22,8 @@ var removeNthFromEnd = function(head, n) {
         len++;
     }
     
-    if(len === 1){
-        return null;
-    }
-    
-    len -=n;
+    len -= n;
     curr = ans;
-    const headPtr = head;
     
     while(len > 0){
         len--;
